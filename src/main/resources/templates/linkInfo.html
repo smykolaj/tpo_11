@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="us" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Link Info</title>
+</head>
+<body>
+<h1>Link Info</h1>
+<div th:object="${link}">
+    <p>ID: <span th:text="*{id}"></span></p>
+    <p>Target URL: <span th:text="*{targetUrl}"></span></p>
+    <p>Name: <span th:text="*{name}"></span></p>
+    <p>Redirect URL: <span th:text="*{redirectUrl}"></span></p>
+    <p>Visits: <span th:text="*{visits}"></span></p>
+</div>
+</body>
+</html>

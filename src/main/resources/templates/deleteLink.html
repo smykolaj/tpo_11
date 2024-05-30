@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang = 'us' xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Link</title>
+</head>
+<body>
+<h1>Delete Link</h1>
+<div th:if="${error}" th:text="${error}" style="color: red;"></div>
+
+<form th:action="@{/links/delete}" method="post">
+    <div>
+        <label for="id">Link ID:</label>
+        <input type="text" id="id" name="id" required>
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+    </div>
+    <div>
+        <button type="submit">Delete</button>
+    </div>
+</form>
+</body>
+</html>

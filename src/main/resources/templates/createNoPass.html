@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign in</title>
+    <style>
+        label{
+            display: block;
+        }
+        .error{
+            color: red;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+<form action="#" method="post" th:action="@{/createLinkWoPassword}" th:object="${link}">
+    <label>
+        Link name:
+        <input type="text" th:field="*{name}">
+    </label>
+    <p th:errors="*{name}" class="error"></p>
+    <label>
+        Target url:
+        <input type="text" th:field="*{targetUrl}">
+    </label>
+    <p th:errors="*{targetUrl}" class="error"></p>
+    <button type="submit">Create</button>
+</form>
+</body>
+</html>
