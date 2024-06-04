@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:replace="~{fragments :: myHead}">
+  <title layout:title-pattern="$CONTENT_TITLE"></title>
+
+</head>
+
+<body th:fragment="body" class=" justify-content-center d-flex  flex-column align-items-center" style="min-height: 100vh; background: radial-gradient(circle at 10% 20%, rgb(220, 217, 249) 0%, rgb(172, 224, 217) 89.8%);">
+
+<header th:replace="~{fragments :: myHeader}" ></header>
+
+
+<main layout:fragment="content" ></main>
+
+<footer th:replace="~{fragments :: myFooter}"></footer>
+
+</body>
+</html>
