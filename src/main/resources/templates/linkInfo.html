@@ -1,16 +1,23 @@
 <!DOCTYPE html>
-<html lang="us" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Link Info</title>
+<html lang="en"  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head th:replace="~{fragments :: myHead(title='Record Page')}">
+    <title></title>
 </head>
 <body>
-<h1>Link Info</h1>
-<div th:object="${link}">
-    <p>ID: <span th:text="*{id}"></span></p>
-    <p>Target URL: <span th:text="*{targetUrl}"></span></p>
-    <p>Name: <span th:text="*{name}"></span></p>
-    <p>Redirect URL: <span th:text="*{redirectUrl}"></span></p>
-    <p>Visits: <span th:text="*{visits}"></span></p>
-</div>
+<main layout:fragment="content">
+    <h1 class="mb-4">Link Info</h6>
+        <div th:object="${link}" class="card">
+            <div class="card-body">
+                <p class="card-text">ID: <span th:text="*{id}"></span></p>
+                <p class="card-text">Target URL: <span th:text="*{targetUrl}"></span></p>
+                <p class="card-text">Name: <span th:text="*{name}"></span></p>
+                <p class="card-text">Redirect URL: <span th:text="*{redirectUrl}"></span></p>
+                <p class="card-text">Visits: <span th:text="*{visits}"></span></p>
+            </div>
+        </div>
+</main>
+
+
 </body>
 </html>

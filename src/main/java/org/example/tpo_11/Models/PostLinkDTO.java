@@ -12,8 +12,7 @@ public class PostLinkDTO
     private String name;
 
     @NotNull
-    @URL
-    @TargetUrlIsHttps
+    @URL(protocol = "https")
     @UniqueTargetUrl
     private String targetUrl;
 

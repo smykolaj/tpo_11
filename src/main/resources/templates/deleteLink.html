@@ -1,25 +1,29 @@
 <!DOCTYPE html>
-<html lang = 'us' xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Delete Link</title>
+<html lang="en"  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head th:replace="~{fragments :: myHead(title='Record Page')}">
+    <title></title>
 </head>
 <body>
-<h1>Delete Link</h1>
-<div th:if="${error}" th:text="${error}" style="color: red;"></div>
 
-<form th:action="@{/links/delete}" method="post">
-    <div>
-        <label for="id">Link ID:</label>
-        <input type="text" id="id" name="id" required>
-    </div>
-    <div>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-    </div>
-    <div>
-        <button type="submit">Delete</button>
-    </div>
-</form>
+<main layout:fragment="content">
+    <h1>Delete Link</h1>
+    <div th:if="${error}" th:text="${error}" class="alert alert-danger" role="alert"></div>
+
+    <form th:action="@{/links/delete}" method="post" class="form-group">
+        <div class="mb-3">
+            <label for="id" class="form-label">Link ID:</label>
+            <input type="text" id="id" name="id" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password:</label>
+            <input type="password" id="password" name="password" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </div>
+    </form>
+</main>
+
 </body>
 </html>

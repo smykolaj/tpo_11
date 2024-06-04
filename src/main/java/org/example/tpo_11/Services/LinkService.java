@@ -137,4 +137,9 @@ public class LinkService
         pass = pass.substring(1, pass.length()-1);
         return pass.equals(linkRepository.findById(id).get().getPassword());
     }
+    public boolean checkPassword(String id, PostLinkDTO patch)
+    {
+
+        return patch.getPassword().equals(linkRepository.findById(id).get().getPassword());
+    }
 }

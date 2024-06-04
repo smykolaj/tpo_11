@@ -11,6 +11,9 @@ public class TargetUrlIsHttpsValidator implements ConstraintValidator<TargetUrlI
 
     @Override
     public boolean isValid(String url, ConstraintValidatorContext context) {
+        if (url == null || url.isEmpty()) {
+            return true;
+        }
         return url.startsWith("https://");
     }
 }

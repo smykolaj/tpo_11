@@ -1,31 +1,27 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Sign in</title>
-    <style>
-        label{
-            display: block;
-        }
-        .error{
-            color: red;
-            font-size: 0.8em;
-        }
-    </style>
+<html lang="en"  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head th:replace="~{fragments :: myHead(title='Record Page')}">
+    <title></title>
 </head>
 <body>
-<form action="#" method="post" th:action="@{/createLinkWoPassword}" th:object="${link}">
-    <label>
-        Link name:
-        <input type="text" th:field="*{name}">
-    </label>
-    <p th:errors="*{name}" class="error"></p>
-    <label>
-        Target url:
-        <input type="text" th:field="*{targetUrl}">
-    </label>
-    <p th:errors="*{targetUrl}" class="error"></p>
-    <button type="submit">Create</button>
-</form>
+
+<main layout:fragment="content">
+    <form action="#" method="post" th:action="@{/createLinkWoPassword}" th:object="${link}" class="form-group">
+        <div class="mb-3">
+            <label for="name" class="form-label">Link name:</label>
+            <input type="text" id="name" th:field="*{name}" class="form-control">
+            <p th:errors="*{name}" class="alert alert-danger" role="alert"></p>
+        </div>
+        <div class="mb-3">
+            <label for="targetUrl" class="form-label">Target url:</label>
+            <input type="text" id="targetUrl" th:field="*{targetUrl}" class="form-control">
+            <p th:errors="*{targetUrl}" class="alert alert-danger" role="alert"></p>
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+</main>
+
+
 </body>
 </html>

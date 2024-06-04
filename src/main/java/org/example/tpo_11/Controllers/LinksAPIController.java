@@ -13,16 +13,12 @@ import org.example.tpo_11.Models.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.validation.FieldError;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -41,6 +37,7 @@ public class LinksAPIController
         this.objectMapper = objectMapper;
     }
 
+    @Tag(name = "POST", description = "Create a new link")
     @PostMapping
     public ResponseEntity<?> saveLink(@Valid @RequestBody PostLinkDTO postLinkDTO) {
 
@@ -100,7 +97,7 @@ public class LinksAPIController
     }
 
 
-    @Tag(name = "DELETE", description = "Remove book")
+    @Tag(name = "DELETE", description = "Remove link")
     @DeleteMapping("/{id}")
     ResponseEntity<?> deleteLink(@PathVariable String id, @RequestParam(required = false) String password)
     {
@@ -147,5 +144,11 @@ public class LinksAPIController
                 ));
     }
 
+    @Tag(name = "POST", description = "Change language. Accepted: pl, en, de")
+    @PostMapping("/{lang}")
+    public ResponseEntity<?> editLanguage(@RequestBody Languages language) {
+        Locale.setDefault(Locale.forLanguageTag(String.valueOf(language)));
+        return ResponseEntity.noContent().build();
+    }
 
 }

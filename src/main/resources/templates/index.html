@@ -1,20 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Link Management</title>
+<html lang="en"  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head th:replace="~{fragments :: myHead(title='Record Page')}">
+    <title></title>
 </head>
 <body>
-<div>
-    <h1>Link Management</h1>
-    <ul>
-        <li><a th:href="@{/change-language}">Change Language</a></li>
-        <li><a th:href="@{/createLink}">Create New Link with Password</a></li>
-        <li><a th:href="@{/createLinkWoPassword}">Create New Link without Password</a></li>
-        <li><a th:href="@{/lookUp}">Get Info About Link</a></li>
-        <li><a th:href="@{/links/delete}">Delete Link</a></li>
-        <li><a th:href="@{/links/modify}">Modify Link</a></li>
-    </ul>
-</div>
+
+<main layout:fragment="content">
+    <div class="container mt-4">
+        <h1>Link Management</h1>
+        <ul class="list-group">
+            <li class="list-group-item"><a th:href="@{/change-language}" class="text-decoration-none">Change Language</a></li>
+            <li class="list-group-item"><a th:href="@{/createLink}" class="text-decoration-none">Create New Link with Password</a></li>
+            <li class="list-group-item"><a th:href="@{/createLinkWoPassword}" class="text-decoration-none">Create New Link without Password</a></li>
+            <li class="list-group-item"><a th:href="@{/lookUp}" class="text-decoration-none">Get Info About Link</a></li>
+            <li class="list-group-item"><a th:href="@{/links/delete}" class="text-decoration-none">Delete Link</a></li>
+            <li class="list-group-item"><a th:href="@{/links/update}" class="text-decoration-none">Modify Link</a></li>
+        </ul>
+    </div>
+</main>
+
+
 </body>
 </html>

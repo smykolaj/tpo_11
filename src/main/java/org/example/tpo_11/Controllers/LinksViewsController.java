@@ -1,10 +1,15 @@
 package org.example.tpo_11.Controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.fge.jsonpatch.JsonPatchException;
+import com.github.fge.jsonpatch.mergepatch.JsonMergePatch;
 import jakarta.validation.Valid;
 import org.example.tpo_11.Models.LinkDTO;
 import org.example.tpo_11.Models.PostLinkDTO;
 import org.example.tpo_11.Services.LinkService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,6 +41,7 @@ public class LinksViewsController {
         model.addAttribute("link", new PostLinkDTO());
         return "create";
     }
+
     @GetMapping("/change-language")
     public String showChangeLanguage(Model model) {
         String lang = "";
@@ -44,7 +50,7 @@ public class LinksViewsController {
     }
 
     @PostMapping("/change-language")
-    public String changeLanguage(Model model, @ModelAttribute("lang") String lang){
+    public String changeLanguage(Model model, @ModelAttribute("lang") String lang) {
         Locale.setDefault(Locale.of(lang));
         return "index";
     }
@@ -85,24 +91,62 @@ public class LinksViewsController {
             return "notFound";
         }
     }
+
     @GetMapping("/lookUp")
     public String lookUp(Model model) {
         return "lookUp";
     }
 
     @GetMapping("/links/delete")
-    public String deleteLink(){
+    public String deleteLink() {
         return "deleteLink";
     }
 
     @PostMapping("/links/delete")
     public String deleteLink(@RequestParam("id") String id, @RequestParam("password") String password, RedirectAttributes redirectAttributes) {
-        try{linkService.deleteLink(id, password);
+        try {
+            linkService.deleteLink(id, password);
             redirectAttributes.addFlashAttribute("message", "Link successfully deleted.");
             return "redirect:/";
-        }catch (Exception e){
+        } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Invalid ID or password.");
             return "redirect:/links/delete";
         }
+    }
+
+    @GetMapping("/links/update")
+    public String update(Model model) {
+        model.addAttribute("link", new PostLinkDTO());
+        model.addAttribute("id", "");
+        return "updateLink";
+    }
+
+    @PostMapping("/links/update")
+    public String updateLink(@ModelAttribute("id") String id, @Valid @ModelAttribute("link") PostLinkDTO link, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("error", "Validation failed for the submitted data.");
+            return "updateLink";
+        }
+        Optional<LinkDTO> linkDTO = linkService.getLinkDTOById(id);
+        if (linkDTO.isPresent()) {
+            if (linkService.checkPassword(id, link)) {
+                LinkDTO patchedlinkDTO = applyPatch(linkDTO.get(), link);
+                linkService.updateLink(patchedlinkDTO);
+
+            }
+            return "redirect:/";
+        }
+        else
+            return "notFound";
+
+
+    }
+    private LinkDTO applyPatch(LinkDTO bookDTO, PostLinkDTO link)
+    {
+        if(!link.getName().isEmpty())
+            bookDTO.setName(link.getName());
+        if(!link.getTargetUrl().isEmpty())
+            bookDTO.setTargetUrl(link.getTargetUrl());
+        return bookDTO;
     }
 }

@@ -1,18 +1,22 @@
 <!DOCTYPE html>
-<html lang = "us" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Change Language</title>
+<html lang="en"  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head th:replace="~{fragments :: myHead(title='Record Page')}">
+    <title></title>
 </head>
 <body>
-<h1>Change Language</h1>
-<form th:action="@{/change-language}" method="post">
-    <label for="lang"></label><select name="lang" id="lang">
-        <option value="en">English</option>
-        <option value="pl">Polski</option>
-        <option value="de">Deutsch</option>
-    </select>
-    <button type="submit">Change</button>
-</form>
+
+<main layout:fragment="content">
+    <h1>Change Language</h1>
+    <form th:action="@{/change-language}" method="post" class="form-inline">
+        <label for="lang" class="mr-2">Language:</label>
+        <select name="lang" id="lang" class="form-control mr-2">
+            <option value="en">English</option>
+            <option value="pl">Polski</option>
+            <option value="de">Deutsch</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Change</button>
+    </form>
+</main>
 </body>
 </html>
